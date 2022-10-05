@@ -8,7 +8,7 @@ Powerful Javascript library that adopts OO coding-style for your application
 It's simple af. Just clone that github repository into your project:
 
 ```bash
-  git clone https://github.com/PlasticMat25/ProjectJ.git
+git clone https://github.com/PlasticMat25/ProjectJ.git
 ```
 That command will clone the main method which is always the **stable** one.
 

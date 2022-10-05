@@ -9,10 +9,22 @@ class Timer extends Atom {
    * @param {Configuration} configuration 
    */
   constructor(configuration) {
-    super({
-      signalConfiguration: { signals: ["start", "stop", "paused", "unpaused", "timeout"] },
-    });
+    super({ signalConfiguration: { signals: ["start", "stop", "paused", "unpaused", "timeout"] }});
+    this.autostart = configuration.autostart
+    this.oneshot = configuration.oneshot || true
+    this.timer = configuration.duration || undefined
+    this.paused = configuration.paused || false
   }
+
+  start(time) {
+
+  }
+
+  stop() {
+
+  }
+
+  isPaused = () => this.paused
 }
 
 module.exports = Timer;

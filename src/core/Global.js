@@ -13,7 +13,7 @@ class GlobalSingleton {
     this.environment = environment;
   }
 
-  Log(...args) {
+  log(...args) {
     if (this.environment == this.ENVIRONMENTS.PRODUCTION) return;
 
     console.log(...args);
@@ -22,4 +22,4 @@ class GlobalSingleton {
 
 const gloabalSingleton = new GlobalSingleton();
 
-module.exports = () => gloabalSingleton;
+module.exports = gloabalSingleton;

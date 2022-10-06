@@ -1,8 +1,15 @@
 const ProjectJ = require('./src');
 
-const GLOBAL = ProjectJ.Global();
-GLOBAL.setEnvironment(GLOBAL.ENVIRONMENTS.DEVELOPMENT);
+const Global = ProjectJ.Global;
+Global.setEnvironment(Global.ENVIRONMENTS.DEVELOPMENT);
 
-// const timer = new ProjectJ.Timer()
+const atom = new ProjectJ.Atom('atom 1')
+const atom2 = new ProjectJ.Atom('atom 2')
 
-console.log(ProjectJ)
+atom.addAtom(atom2)
+
+atom2.destroy(3)
+
+const timer = new ProjectJ.Timer()
+
+Global.log(ProjectJ)

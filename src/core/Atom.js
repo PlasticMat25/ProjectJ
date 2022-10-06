@@ -1,25 +1,41 @@
-const Signal = require("./Signal");
+const Core = require("./Core");
 
-class Atom {
-  #signal;
+class Atom extends Core{
+    #atoms = new Map()
 
-  /**
-   * @typedef {Object} SignalConfiguration
-   * @property {[String]} signals
-   * @property {{unsafe: boolean}} flags
-   *
-   * @typedef {Object} Configuration
-   * @property {SignalConfiguration} signalConfiguration
-   *
-   * @param {Configuration} configuration
-   */
-  constructor(configuration) {
-    const signalsConfiguration = configuration.signalConfiguration || {};
-    this.#signal = new Signal(
-			signalsConfiguration.signals, {
-      flags: signalsConfiguration.flags,
-    });
-  }
+    constructor(name) {
+        super()
+
+        this.parent = undefined
+        this.name = name
+    }
+
+    enter() {}
+
+    addAtom(atom) {
+        if(!atom) return
+
+        atom.parent = this
+        this.#atoms.set(atom.name, atom)
+        console.log('Added item')
+        atom.enter()
+    }
+    
+    removeAtomByObject(atom) {
+        if(!atom) return
+        this.#atoms.delete(atom.name)    
+    }
+
+    removeAtomByName(atom) {
+        if(!atom) return
+        this.#atoms.delete(atom)
+    }
+
+    destroy(delay) {
+        if(!this.parent) return
+        console.log('Destroyed item')
+        setTimeout(() => this.parent.removeAtomByObject(this), delay * 1000)
+    }
 }
 
-module.exports = Atom;
+module.exports = Atom

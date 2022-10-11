@@ -10,6 +10,12 @@ atom.addAtom(atom2)
 
 atom2.destroy(3)
 
-const timer = new ProjectJ.Timer()
+const object = {
+    on_timeout: () => {
+        console.log('timeout')
+    }
+}
 
+const timer = new ProjectJ.Timer()
+timer.signalManager.connect('timeout', object, 'on_timeout')
 Global.log(ProjectJ)

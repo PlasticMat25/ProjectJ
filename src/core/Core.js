@@ -4,7 +4,7 @@ class Core {
   signalManager;
   
   constructor() {
-    this.signal = new Signal(undefined, { unsafe: true});
+    this.signalManager = new Signal(undefined, { unsafe: true});
   }
 }
 

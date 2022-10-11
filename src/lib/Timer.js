@@ -8,23 +8,23 @@ class Timer extends Atom {
    * 
    * @param {Configuration} configuration 
    */
-  constructor(options) {
+  constructor(options = {}) {
     super();
 
     this.signalManager.addSignals(['start, stop, pause, unpause, timeout'])
 
-    this.autostart = options.autostart
+    this.autostart = options.autostart || false
     this.oneshot = options.oneshot || true
-    this.duration = options.duration || undefined
+    this.duration = options.duration || 1
     this.paused = options.paused || false
-    this.delay = options.delay
+    this.delay = options.delay || 1
   }
 
   enter() {
     if(this.autostart) this.start(this.duration)
   }
 
-  start(time) {
+  start(duration) {
     
   }
 

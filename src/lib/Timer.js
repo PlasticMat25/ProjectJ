@@ -22,6 +22,7 @@ class Timer extends Atom {
     super();
 
     this.signalManager.addSignals(["start, stop, pause, unpause, timeout"]);
+    this.signalManager.setSafe(true)
 
     this.autostart = options.autostart || false;
     this.oneshot = options.oneshot || true;

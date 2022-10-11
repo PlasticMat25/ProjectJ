@@ -1,17 +1,21 @@
-const ProjectJ = require('./src');
+const ProjectJ = require("./src");
 
 const Global = ProjectJ.Global;
 Global.setEnvironment(Global.ENVIRONMENTS.DEVELOPMENT);
 
-const atom = new ProjectJ.Atom('atom 1')
-const atom2 = new ProjectJ.Atom('atom 2')
+class Home extends ProjectJ.GetHandler {
+  constructor() {
+    super("/home");
+  }
 
-atom.addAtom(atom2)
+  handleRequest = (req, res) => {
+    res.write(`${this.name} hit!`);
+    res.end();
+  };
+}
 
-atom2.destroy(3)
+const server = new ProjectJ.Http({ port: 4000 });
+server.addEndpoint(new Home());
+server.run();
 
-
-new ProjectJ.Http({port: 4000}).run()
-
-
-Global.log(ProjectJ)
+Global.log(ProjectJ);

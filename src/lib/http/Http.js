@@ -1,13 +1,15 @@
-const { Atom, Global } = require("../../core")
+const { Atom } = require("../../core")
 const http = require('http')
 
 class Http extends Atom {
-    #endpoints = {
+    #methods = {
         get: new Map(),
         post: new Map(),
         put: new Map(),
-        delete: new Map()
+        delete: new Map(),
     }
+
+    #notFound = undefined
 
     constructor(options = {}) {
         super()
@@ -18,14 +20,16 @@ class Http extends Atom {
         this.server = http.createServer(this.#requestListener)
     }
     
-    run() {
-        this.server.listen(this.port)
-    }
+    run = () => this.server.listen(this.port)
 
     addEndpoint = (endpoint) => {
-        const { method, url, handler } = endpoint
-        const endpoint = this.#endpoints[method]
-        endpoint.set(url, handler)
+        const { method, name } = endpoint
+
+        const _method = this.#methods[method]
+
+        if(!_method && method == 'notFound') return this.#notFound = endpoint
+
+        _method.set(name, endpoint)
     }
 
     #requestListener = (req, res) => {
@@ -33,16 +37,21 @@ class Http extends Atom {
 
         req.on('data', (data) => console.log(data))
 
-        const endpoint = this.#endpoints[method]
-        const handler = endpoint?.get(url)
-
-        if(!handler) return notFoundResponse
+        const _method = this.#methods[method.toLowerCase()]
         
-        //handler.handleRequest()
+        let handler = undefined 
+        
+        handler = _method?.get(url)
 
-        // console.log('Request', req, '\nResponse', res)
+        if(handler) return handler.handleRequest(req, res)
+        
+        if(this.#notFound) return this.#notFound.handleRequest()
+        
+        return this.#UnhandledEndpoint(res, url)
+    }
 
-        res.write('Shit')
+    #UnhandledEndpoint (res, url) {
+        res.write(`Cannot get url -> ${url}`)
         res.end()
     }
 }

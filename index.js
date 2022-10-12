@@ -2,9 +2,7 @@ const { Http, GetHandler} = require("./src");
 
 class Server extends Http {
   constructor() {
-    super({
-      port: 3000,
-    })
+    super({ port: 3000 })
 
     this.addHandler(new Home())
   }

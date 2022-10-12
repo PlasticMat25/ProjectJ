@@ -14,8 +14,20 @@ class Home extends ProjectJ.GetHandler {
   };
 }
 
-const server = new ProjectJ.Http({ port: 4000 });
-server.addEndpoint(new Home());
-server.run();
+class Server extends ProjectJ.Http {
+  constructor() {
+    super({port: 3000})
+
+    this.addEndpoint(new Home())
+
+    this.signalManager.connect('ready', this, 'onReady')
+  }
+
+  onReady(port) {
+    console.log('Server is running on port ' + port)
+  }
+}
+
+new Server().run()
 
 Global.log(ProjectJ);

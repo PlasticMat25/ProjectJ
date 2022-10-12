@@ -23,9 +23,6 @@ class GetHandler extends Endpoint {
   constructor(name) {
     super(name, METHODS.GET);
   }
-
-  handleRequest = (req, res) => {}
-
 }
 
 class PostHandler extends Endpoint {

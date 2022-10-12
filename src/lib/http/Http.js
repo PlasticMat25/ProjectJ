@@ -1,5 +1,4 @@
 const { Atom } = require("../../core")
-const {}
 const http = require('http')
 const Response = require("./Response")
 const Request = require("./Request")
@@ -20,6 +19,9 @@ class Http extends Atom {
         this.signalManager.setSafe(true)
 
         this.port = options.port || 5000
+        this.views = options.views || 'views'
+        this.static = options.static || 'static'
+
         this.server = http.createServer(this.#requestListener)
     }
     
@@ -28,14 +30,15 @@ class Http extends Atom {
         this.signalManager.emit('ready', this.port)
     }
 
-    addEndpoint = (endpoint) => {
-        const { method, name } = endpoint
+    addHandler = (handler) => {
+        const { method, name } = handler
 
         const _method = this.#methods[method]
 
-        if(!_method && method == 'notFound') return this.#notFound = endpoint
+        if(!_method && method == 'notFound') 
+        return this.#notFound = handler
 
-        _method.set(name, endpoint)
+        _method.set(name, handler)
     }
 
     #requestListener = (req, res) => {
@@ -46,10 +49,11 @@ class Http extends Atom {
         let handler = undefined 
         handler = _method?.get(url)
 
-        if(handler) return handler.handleRequest(new Request(req), new Response(res))
+        if(handler) return handler.handleRequest(new Request(req), new Response(res, this.views))
         
         if(this.#notFound) 
             return this.#notFound.handleRequest()
+
         return this.#UnhandledEndpoint(res, url)
     }
 

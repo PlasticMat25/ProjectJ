@@ -1,33 +1,23 @@
-const ProjectJ = require("./src");
+const { Http, GetHandler} = require("./src");
 
-const Global = ProjectJ.Global;
-Global.setEnvironment(Global.ENVIRONMENTS.DEVELOPMENT);
-
-class Home extends ProjectJ.GetHandler {
+class Server extends Http {
   constructor() {
-    super("/home");
-  }
+    super({
+      port: 3000,
+    })
 
-  handleRequest = (req, res) => {
-    res.write(`${this.name} hit!`);
-    res.end();
-  };
+    this.addHandler(new Home())
+  }
 }
 
-class Server extends ProjectJ.Http {
+class Home extends GetHandler {
   constructor() {
-    super({port: 3000})
-
-    this.addEndpoint(new Home())
-
-    this.signalManager.connect('ready', this, 'onReady')
+    super('/home')
   }
 
-  onReady(port) {
-    console.log('Server is running on port ' + port)
+  handleRequest(req, res) {
+    res.sendView('index')
   }
 }
 
 new Server().run()
-
-Global.log(ProjectJ);

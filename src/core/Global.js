@@ -1,16 +1,17 @@
 class GlobalSingleton {
   constructor() {
-    this.ENVIRONMENTS = {
-      PRODUCTION: 0,
-      DEVELOPMENT: 1,
-    };
+    this.ENVIRONMENTS = { PRODUCTION: 0, DEVELOPMENT: 1 };
 
-    this.environment;
-    this.logger;
+    this.environment = this.ENVIRONMENTS.DEVELOPMENT;
+    this.staticDirectory = process.cwd().concat('/views');
   }
 
   setEnvironment(environment) {
     this.environment = environment;
+  }
+
+  setStatic(path) {
+    this.staticDirectory = process.cwd().concat(path)
   }
 
   log(...args) {

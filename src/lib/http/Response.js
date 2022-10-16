@@ -32,7 +32,8 @@ class Response{
 
     sendFile(filename, contentType) {
         this.#res.writeHead(200, {'Content-Type': contentType})
-        const path = process.cwd().concat(this.#static, '/', filename, '.dick')
+        const path = process.cwd().concat(this.#static, '/', filename)
+        
         const stream = fs.createReadStream(path)
         try {
 	        stream.pipe(this.#res)

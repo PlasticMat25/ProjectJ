@@ -6,7 +6,8 @@ const fs = require("fs")
 
 const mime = {
     html: 'text/html',
-    jpg: 'image/jpg'
+    jpg: 'image/jpg',
+    css: 'text/css'
 }
 
 class Http extends Atom {

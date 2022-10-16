@@ -31,16 +31,14 @@ class Response{
     }
 
     sendFile(filename, contentType) {
-        fs.readFile(process.cwd().concat(this.#static, '/', filename), (error, data)=> {
-            if(error) {
-                console.log(error)
-                return this.#internalServerError()
-            }
-
-            this.#res.writeHead(200, {'Content-Type': contentType})
-            this.#res.write(data)
-            this.#res.end()
-        })
+        this.#res.writeHead(200, {'Content-Type': contentType})
+        const path = process.cwd().concat(this.#static, '/', filename, '.dick')
+        const stream = fs.createReadStream(path)
+        try {
+	        stream.pipe(this.#res)
+        } catch (error) {
+            this.#internalServerError()    
+        }
     }
 
     #internalServerError() {

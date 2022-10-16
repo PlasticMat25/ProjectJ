@@ -25,9 +25,7 @@ class Handler extends Atom {
    * 
    * ? In case that some handler has no implemented method prevent crash
    */
-  handleRequest(req, res) {
-
-  }
+  handleRequest(req, res) {}
 }
 
 class GetHandler extends Handler {

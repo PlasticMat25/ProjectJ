@@ -8,8 +8,17 @@
             "type": "node",
             "request": "launch",
             "name": "Launch Program",
+<<<<<<< HEAD
             "skipFiles": [ "<node_internals>/**" ],
             "program": "${workspaceFolder}/index.js"
         }
     ]
+=======
+            "skipFiles": [
+                "<node_internals>/**"
+            ],
+            "program": "${workspaceFolder}/index.js",
+        }
+    ],
+>>>>>>> 825e1d199a58a7949bdda60d97e9dafcaab4d38d
 }

@@ -1,8 +1,10 @@
-const { Atom } = require("../../core");
+const { Atom, Global } = require("../../core");
 const http = require("http");
 const Response = require("./Response");
 const Request = require("./Request");
+const ServiceManager = require('./ServiceManager')
 const fs = require("fs");
+const { ERROR } = require("../../core/typedefs");
 
 const mime = {
     html: "text/html",
@@ -30,6 +32,8 @@ class Http extends Atom {
         this.static = options.static || "/static";
 
         this.server = http.createServer(this.#requestListener);
+        
+        this.serviceManager = new ServiceManager()
 
         this.#loadStaticFiles();
     }
@@ -40,7 +44,7 @@ class Http extends Atom {
     };
 
     addHandler = (handler) => {
-        const { method, name } = handler;
+        const { method, name, services } = handler;
 
         const _method = this.#methods[method];
 
@@ -49,8 +53,26 @@ class Http extends Atom {
             return;
         }
 
+        if(services) this.injectServicesIntoHandler(handler)
+
         _method?.set(name, handler);
     };
+
+    injectServicesIntoHandler (handler) {
+        const {services} = handler
+        
+        services.forEach(serviceName => {
+            const isEmpty = handler[serviceName]
+            
+            if(isEmpty != undefined) {
+                Global.log(`Atom#injectServicesIntoHandler: the field ${serviceName} has already a value`)
+                return ERROR
+            }
+
+            const service = this.serviceManager.getService(serviceName)
+            handler[serviceName] = service
+        });
+    }
 
     #loadStaticFiles() {
         if (!this.static) return;

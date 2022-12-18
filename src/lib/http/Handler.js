@@ -14,6 +14,7 @@ class Handler extends Atom {
   constructor(name, method) {
     super()
     
+    this.services = undefined
     this.name = name;
     this.method = method;
   }
@@ -26,6 +27,10 @@ class Handler extends Atom {
    * ? In case that some handler has no implemented method prevent crash
    */
   handleRequest(req, res) {}
+  
+  inject(services) {
+    this.services = services
+  }
 }
 
 class GetHandler extends Handler {

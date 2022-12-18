@@ -1,9 +1,9 @@
 const Timer = require('./Timer')
 const Http = require('./http/Http')
-const Endpoint = require('./http/Endpoint')
+const Handler = require('./http/Handler')
 
 module.exports = {
     Timer,
     Http,
-    ...Endpoint
+    ...Handler
 }

@@ -44,10 +44,12 @@ class Signal {
       Global.log("Atom#connect: Signal has to be string");
       return ERROR;
     }
+
     if (IS_INVALID_TYPE(target, "object")) {
       Global.log("Atom#connect: Target has to be object");
       return ERROR;
     }
+    
     if (IS_INVALID_TYPE(action, "string")) {
       Global.log("Atom#connect: Action has to be string");
       return ERROR;

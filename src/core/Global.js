@@ -1,19 +1,15 @@
 class GlobalSingleton {
   constructor() {
-    this.ENVIRONMENTS = {
-      PRODUCTION: 0,
-      DEVELOPMENT: 1,
-    };
+    this.ENVIRONMENTS = { PRODUCTION: 0, DEVELOPMENT: 1 };
 
-    this.environment;
-    this.logger;
+    this.environment = this.ENVIRONMENTS.DEVELOPMENT;
   }
 
   setEnvironment(environment) {
     this.environment = environment;
   }
-
-  Log(...args) {
+  
+  log(...args) {
     if (this.environment == this.ENVIRONMENTS.PRODUCTION) return;
 
     console.log(...args);
@@ -22,4 +18,4 @@ class GlobalSingleton {
 
 const gloabalSingleton = new GlobalSingleton();
 
-module.exports = () => gloabalSingleton;
+module.exports = gloabalSingleton;

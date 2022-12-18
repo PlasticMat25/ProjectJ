@@ -31,3 +31,4 @@ It exports all available modules. *(DOCS comming soon)*
 Contributions are always welcome!
 
 Just fork that repository, make changes and pull request
+66.3.6

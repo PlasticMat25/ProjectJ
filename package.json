@@ -1,0 +1,20 @@
+{
+  "name": "projectj",
+  "version": "1.0.0",
+  "description": "[![MIT License](https://img.shields.io/badge/License-MIT-green.svg)](https://choosealicense.com/licenses/mit/)",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/PlasticMat25/ProjectJ.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/PlasticMat25/ProjectJ/issues"
+  },
+  "homepage": "https://github.com/PlasticMat25/ProjectJ#readme"
+}
